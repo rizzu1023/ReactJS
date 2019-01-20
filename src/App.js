@@ -4,6 +4,7 @@ import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import uuid from 'uuid';
 import About from './components/pages/About';
+import axios from 'axios';
 // import Header from './components/layout/Header';
 
 import './App.css';
@@ -11,24 +12,18 @@ import './App.css';
 class App extends Component {
   state = {
     todos: [
-      {
-        id : uuid.v4(),
-        title : "React JavaScript",
-        completed : false
-      },
-      {
-        id : uuid.v4(),
-        title : "Angular JavaScript",
-        completed : false 
-      },
-      {
-        id : uuid.v4(),
-        title : "Vue JavaScript",
-        completed : false
-      }
+      // {
+      //   id : uuid.v4(),
+      //   title : "React JavaScript",
+      //   completed : false
+      // },
+      
     ]
   }
 
+  componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=100').then(res => this.setState({ todos: res.data }))
+  }
   // toggle complete
   markComplete = (id) => {
     this.setState({ todos: this.state.todos.map(i => {
@@ -60,7 +55,7 @@ class App extends Component {
       <Router>
       <div className='App'>
       <div className="container">
-        <Route path="/" render={props => (
+        <Route exact path="/" render={props => (
           <React.Fragment>
               <AddTodo addTodo={this.addTodo}/>
               <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo}/>
