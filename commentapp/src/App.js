@@ -4,35 +4,46 @@ import './App.css';
 class Header extends Component{
   render(){
     return (
-      <h3>This is Header Component</h3>
+      <h3>{this.props.name}</h3>
     );
   }
 }
 
 
 class Footer extends Component{
-  render(){
+  state = {
+    user : 'edureka',
+    social : 'youtube',
+  }
+  
+  render(){                                     
+  
+    setTimeout(()=> {this.setState({ user:'Rizwan', social: 'instagram'})},2000);
     return (
-      <h3>This is Footer Component</h3>
+      <div>
+      {/* <h3>This is Footer Component</h3> */}
+      <h2>{this.state.user +" "+ this.state.social}</h2>
+      </div>
     );
   }
 }
 
 
 
-const styles = {
-  color:"lightblue",
-  backgroundColor: "black"
-}
+// const styles = {
+//   color:"lightblue",
+//   backgroundColor: "black"
+// }
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-      <Header />
+        <Header name="Mohammed"/>
+        <Header name="Rizwan"/>
 
             Hello World {2+5}
-      <Footer />
+        <Footer />
       </div>
     );
   }
